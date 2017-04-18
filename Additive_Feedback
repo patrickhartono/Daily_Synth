@@ -12,6 +12,10 @@ sound output.
 StageLimiter.activate
 
 
+//To instal Quarks mathlib 
+Quarks.install("MathLib");
+
+
 (
 
 SynthDef(\add_fdk, {
