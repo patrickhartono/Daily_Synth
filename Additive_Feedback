@@ -12,7 +12,7 @@ sound output.
 StageLimiter.activate
 
 
-//To instal Quarks mathlib 
+//To instal Quarks mathlib
 Quarks.install("MathLib");
 
 
@@ -45,11 +45,10 @@ SynthDef(\add_fdk, {
 	delay= AllpassC.ar(sum, maxdel, deltime, 1, 0.5);
 	reverb= FreeVerb2.ar(delay, sum, mix, room, damp, 0.5);
 
-	spat= LFNoise0.kr(-1, 1);
+	spat= LFNoise0.kr([-1, 1]);
 
 	reverb= reverb * 0.4;
-	//pan= Pan2.ar(reverb, spat, 0.25);
-
+	
 	Out.ar(spat, reverb);
 
 }).add;
