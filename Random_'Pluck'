@@ -31,7 +31,7 @@ SynthDef(\random_pluck, {
 
 	reverb= GVerb.ar(osc, roomsize, revtime, damping, inputbw, drylevel, earlylevel, taillevel);
 
-	sig = reverb * 0.1;
+	sig = LeakDC.ar(reverb, 0.9, 0.5);
 
 	Out.ar(0, sig);
 
@@ -44,7 +44,7 @@ Pbind(\instrument, \random_pluck,
 	\deltime, Prand([0.001, 0.002, 0.09, 0.009, 0.01], inf),
 	\maxdel, Prand([0.001, 0.002, 0.09, 0.009, 0.01], inf),
 	\dectime, Pwhite(0.1, 1.5, inf),
-	\dur, Pgbrown(0.4, 2, rrand(0.125, 1), inf),
+	\dur, Pgbrown(1.1, 2.5, rrand(0.125, 1), inf),
 ).play;
 
 )
