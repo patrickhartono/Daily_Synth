@@ -21,9 +21,9 @@ StageLimiter.activate;
 
 SynthDef.new(\Blipo_Blip_lip, {
 
-	|pan= 0, amp= 0.5, fedbk= 190.6, atk= 0.05, sus= 1.0, rel= 1.0|
+	|amp= 0.5, fedbk= 190.6, atk= 0.05, sus= 1.0, rel= 1.0|
 
-	var sig, env, freq, trig, seq, sum, shape, reverb;
+	var sig, env, freq, trig, seq, sum, shape, reverb, pan;
 
 	sum= 0;
 
@@ -54,8 +54,9 @@ SynthDef.new(\Blipo_Blip_lip, {
 
 	sum = reverb * env;
 
+	pan= LFNoise1.ar(rrand(-1, 1));
 
-	sum= Pan2.ar(sum, SinOsc.kr([-1, 1]));
+	sum= Pan2.ar(sum, pan);
 
 	sum = LeakDC.ar(sum, 0.9, 0.75);
 
