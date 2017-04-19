@@ -19,7 +19,7 @@ StageLimiter.activate;
 SynthDef(\random_pluck, {
 
 	|out=1, amp= 0.2, freq= 2, maxdel= 0.002, deltime= 0.001, dectime= 1,
-	roomsize= 60, revtime= 10.85, damping= 0.1, inputbw= 0.34, drylevel= -5, earlylevel= -11, taillevel= -9, trig= 0.02, coef= 0.5|
+	 trig= 0.02, coef= 0.5|
 
 	var sig, shape, osc, reverb, env, pan;
 
@@ -29,10 +29,15 @@ SynthDef(\random_pluck, {
 
 	osc= Pluck.ar(ClipNoise.ar(amp), trig , maxdel, deltime, dectime, coef:coef);
 
-	reverb= GVerb.ar(osc, roomsize, revtime, damping, inputbw, drylevel, earlylevel, taillevel);
-
-	sig = LeakDC.ar(reverb, 0.9, 0.5);
-
+	
+	reverb= FreeVerb.ar(osc, 0.5, 1, 0.75, 1);
+	
+	sig = LeakDC.ar(reverb, 0.9, 0.75);
+	
+	pan= LFNoise1.ar(rrand(-1, 1));
+	
+	sig = Pan2.ar(sig, pan, 0.5);
+	
 	Out.ar(0, sig);
 
 }).add;
